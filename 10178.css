@@ -1,0 +1,15 @@
+<script>
+$(document).ready(function() {
+$('.providedbylb .toggle-wrapper .show').on('click', function() {
+$('.providedbylb').addClass('open');
+$('#content').addClass('dimmed');});
+$('.providedbylb .toggle-wrapper .hide').on('click', function() {
+$('.providedbylb').removeClass('open');
+$('#content').removeClass('dimmed');});
+$('.providedbylb .has-menu > a').on('click', function(e) {e.preventDefault();e.stopPropagation();const parent = $(this).closest('.has-menu');
+$('.providedbylb .has-menu').not(parent).removeClass('open');parent.toggleClass('open');});
+$(document).on('click', function(e) {if (!$(e.target).closest('.providedbylb').length) {
+$('.providedbylb').removeClass('open');
+$('#content').removeClass('dimmed');
+$('.providedbylb .has-menu').removeClass('open');}});});
+</script>
