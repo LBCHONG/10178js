@@ -1,0 +1,82 @@
+<div class="t1 profile">PROFILE</div>
+<div class="user-info">
+<table>
+<%
+		var bankAccountNo = 'Bank Account Number';
+		var bankBsb = '';
+		var payId = '';
+if (_.getVar('country') === 'AU') {
+		bankBsb = 'Bank BSB';
+		payId = 'Pay ID';
+} else if (_.getVar('country') === 'IE') {
+		bankAccountNo = 'IBAN';
+		bankBsb = 'BIC';
+ }else {
+		if(showUserBSBnPayID) {
+		if (_.getVar('currency') === 'INR') {
+		bankBsb =  'IFSC';
+		payId = 'Pay ID';
+} else if (_.getVar('currency') === 'USD') {
+		bankBsb =  'Routing Number';
+		payId = 'Zelle';
+} else { 
+		bankBsb =  'Bank BSB';
+		payId = 'Pay ID';
+}}}%>
+
+	<tbody>
+		<tr>
+			<td>Username</td>
+			<td><%= userUsername %></td>
+		</tr>
+		<tr>
+			<td>Name </td>
+			<td><%= userName %></td>
+		</tr>
+		<tr>
+			<td>Phone Number </td>
+			<td><%= userMobile %></td>
+		</tr>
+		<tr>
+			<td>Wallet Balance </td>
+			<td><%= userBalance %></td>
+		</tr>
+		<tr>
+			<td>Bank Name </td>
+			<td><%= userbankName %></td>
+		</tr>
+		<tr>
+			<td>Bank Account Name </td>
+			<td><%= userAccName %></td>
+		</tr>
+		<tr>
+			<td><%= bankAccountNo  %> </td>
+			<td><%= userAccNo %></td>
+		</tr>
+		<tr>
+			<td>Date & Time</td>
+			<td><span id='vvv'></span> <script> function tbStart() { var eee = new Date(); var sss = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']; var ppp = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']; var tt = eee.getDate(); var hh = eee.getMonth(); var uu = eee.getFullYear(); var nn = eee.getDay(); var dd = eee.getHours(); var ee = eee.getMinutes(); var rr = eee.getSeconds();tt = tbCheck(tt); dd = tbCheck(dd); ee = tbCheck(ee); rr = tbCheck(rr); var aaa = tt + ' ' + (sss[hh]) + ' ' + uu + ' (' + ppp[nn] + ') '+ dd + ":" + ee + ":" + rr; document.getElementById('vvv').innerHTML = aaa; } function tbCheck(u) { if (u < 10) { u = "0" + u }; return u; } setInterval(tbStart, 1000); </script></td>
+		</tr>
+	</tbody>
+</table>
+</div>
+<div class="setting">
+<p class="t1">SETTING</p>
+<% if (parseInt(_.config('AllowToChangeMobileNumber')) === 1) { %>
+<a class="t2" href="#changeMobile">Mobile Number</a>
+<% } %>
+<% if (parseInt(_.config('EmailRegistration')) === 1) { %>
+	<a class="t2" href="#changeEmail">Email</a>
+	<!--<% //verifyOTP
+		if (userEmail && !parseInt(userEmailVerification)) {  %>
+		<a class="t2" href="#emailVerification">Verify Email OTP</a>
+	<% } %>-->
+<% } %>
+<a class="t2" href="#changePassword">Password</a>
+<p class="t2 change-language">Language</p>
+<% if (_.deepGet(JSON.parse(_.config('ContactUs')),'contact') || _.themeLayout('Contact')) { %>
+<a class="t2" href="#contact">Contact Us</a>
+<% } %>
+<a class="t2 report-btn">Report a problem</a>
+<a class="t2" href="#logout">Logout</a>
+</div>
